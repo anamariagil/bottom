@@ -1,21 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React  from 'react';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import { BottomNavigation } from 'react-native-paper';
+import registroRoute from './registro';
+import rutasRoute from './rutas';
+import vehiculosRoute from './vehiculos';
 
-export default function App() {
+export default function Inicio() {
+  const [index, setIndex] = React.useState(0);
+  const [routes ] = React.useState([
+    {key: 'registro', title:'Registro', icon:'login'},
+    {key: 'rutas', title: 'Rutas', icon: 'routes'},
+    {key: 'vehiculos', title: 'Vehículos', icon: 'car'}
+  ])
+
+  const renderScene = BottomNavigation.SceneMap({
+    registro: registroRoute,
+    rutas: rutasRoute,
+    vehiculos: vehiculosRoute
+  });
+
+  
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <BottomNavigation 
+      navigationState={{index, routes}}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+})
